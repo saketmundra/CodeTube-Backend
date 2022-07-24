@@ -8,10 +8,11 @@ import authRoutes from "./routes/auth.js"
 import cookieParser from "cookie-parser"
 import cors from 'cors'
 
-
-
 const app = express()
-const port = 5000
+const port = process.env.PORT || 5000
+app.use(cors({ origin: true, credentials: true }));
+app.use(cookieParser())
+
 dotenv.config()
 
 const connect = () => {
@@ -24,8 +25,7 @@ const connect = () => {
             throw err;
         })
 }
-app.use(cors())
-app.use(cookieParser())
+
 app.use(express.json())
 app.use("/api/auth",authRoutes)
 app.use("/api/users",userRoutes)
@@ -47,5 +47,5 @@ app.use((err, req, res, next) => {
 
 app.listen(port, () => {
     connect()
-    console.log(`Example app listening on port ${port}`)
+    console.log(`App running on port ${port}`)
 })

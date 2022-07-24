@@ -79,14 +79,18 @@ const unsubscribe=async(req,res,next)=>{
     }
 
 }
-const like=async(req,res,next)=>{
+const like = async (req, res, next) => {
+    const id = req.user.id;
+    const videoId = req.params.videoId;
     try {
-        
-    } catch (error) {
-        next(error)
-        
+      await Video.findByIdAndUpdate(videoId,{
+        $addToSet:{likes:id},
+        $pull:{dislikes:id}
+      })
+      res.status(200).json("The video has been liked.")
+    } catch (err) {
+      next(err);
     }
-
-}
+  };
 
 export {updateUser,deleteUser,like,subscribe,unsubscribe,getUser}
