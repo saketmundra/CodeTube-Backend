@@ -30,7 +30,7 @@ app.use(express.json())
 app.use("/api/auth",authRoutes)
 app.use("/api/users",userRoutes)
 app.use("/api/review",reviewRoutes)
-app.use("/api/video",videoRoutes)
+app.use("/api/videos",videoRoutes)
 
 //error handler
 app.use((err, req, res, next) => {
